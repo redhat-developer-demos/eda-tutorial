@@ -1,0 +1,39 @@
+= Requirements for the Workshop
+
+== CLI tools
+
+You will be extensively using the Terminal on this workshop, so the following CLI tools are required:
+
+* docker
+** https://www.docker.com/docker-mac[Mac OS]
+** Fedora: `dnf install docker`
+
+* oc (Openshift client)
+** MacOS: `brew install openshift-cli`
+** Other: https://github.com/openshift/origin/releases[Openshift Releases]
+
+* Java 8+
+** MacOS: `brew cask install adoptopenjdk`
+** Fedora: `dnf install java`
+
+* Apache Maven
+** MacOS: `brew install maven`
+** Fedora: `dnf install maven`
+
+* link:https://github.com/wercker/stern[Stern] - A multi pod and container log tailing for Kubernetes
+** Mac OS: `brew install stern`
+** Fedora: `sudo curl --output /usr/local/bin/stern -L https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64 && sudo chmod +x /usr/local/bin/stern`
+
+* `curl`, `gunzip`, `tar`
+** Mac OS: built-in or part of your bash shell
+** Fedora: should also be installed already, but just in case... `dnf install curl gzip tar`
+
+* git
+** MacOS: `brew install git`
+** Fedora: `dnf install git`
+
+== Optional
+
+* If you want to run it on your own machine, you can use https://github.com/MiniShift/minishift[Minishift] v1.31.0+
+** MacOS: `brew cask install minishift`
+** Other: https://github.com/minishift/minishift/releases[Minishift Releases]
