@@ -1,5 +1,9 @@
 = Requirements for the Workshop
 
+== IDE
+
+You can use any Java IDE for this workshop, but if you didn't try it before, we recommend https://code.visualstudio.com/download[VS Code] with the https://code.visualstudio.com/docs/languages/java[Java Extension Pack].
+
 == CLI tools
 
 You will be extensively using the Terminal on this workshop, so the following CLI tools are required:
