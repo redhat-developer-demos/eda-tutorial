@@ -35,7 +35,7 @@ curl -L https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.10
 
 [source,bash]
 ----
-sed -i '' 's/namespace: .*/namespace: strimzi-infra/‘ install/cluster-operator/*RoleBinding*.yaml
+sed -i '' 's/namespace: .*/namespace: strimzi-infra/' install/cluster-operator/*RoleBinding*.yaml
 ----
 
 [source,bash]
@@ -46,9 +46,12 @@ oc apply -f examples/templates/cluster-operator -n strimzi-infra
 oc apply -f examples/kafka/kafka-persistent-single.yaml
 ----
 
+[#mysql]
+== Deploy a MySQL database instance
+
 [source,bash]
 ----
-oc new-app . --strategy=docker --name=mysql --context-dir=docker-images/mysql \
+oc new-app https://github.com/yanaga/eda-tutorial.git --strategy=docker --name=mysql --context-dir=docker-images/mysql \
 -e MYSQL_ROOT_PASSWORD=redhat \
 -e MYSQL_USER=mysqluser \
 -e MYSQL_PASSWORD=mysqlpw
