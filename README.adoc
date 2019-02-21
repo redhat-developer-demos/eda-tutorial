@@ -28,9 +28,29 @@ oc login $(minishift ip):8443 -u admin -p admin
 
 [#environment]
 == Deploying Strimzi
+[source,bash]
+----
+curl -L https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.10.0/strimzi-0.10.0.tar.gz | tar xzf -
+----
 
 [source,bash]
 ----
-oc apply -f https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.8.2/strimzi-cluster-operator-0.8.2.yaml -n myproject
-oc apply -f https://raw.githubusercontent.com/strimzi/strimzi-kafka-operator/0.8.2/examples/kafka/kafka-persistent.yaml -n myproject
+sed -i '' 's/namespace: .*/namespace: strimzi-infra/‘ install/cluster-operator/*RoleBinding*.yaml
 ----
+
+[source,bash]
+----
+oc new-project strimzi-infra
+oc apply -f install/cluster-operator -n strimzi-infra
+oc apply -f examples/templates/cluster-operator -n strimzi-infra
+oc apply -f examples/kafka/kafka-persistent-single.yaml
+----
+
+[source,bash]
+----
+oc new-app . --strategy=docker --name=mysql --context-dir=docker-images/mysql \
+-e MYSQL_ROOT_PASSWORD=redhat \
+-e MYSQL_USER=mysqluser \
+-e MYSQL_PASSWORD=mysqlpw
+----
+
