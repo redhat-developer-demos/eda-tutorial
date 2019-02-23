@@ -9,7 +9,7 @@ You can use any Java IDE for this workshop, but if you didn't try it before, we 
 You will be extensively using the Terminal on this workshop, so the following CLI tools are required:
 
 * docker
-** https://www.docker.com/docker-mac[Mac OS]
+** https://www.docker.com/products/docker-desktop[Mac OS & Windows]
 ** Fedora: `dnf install docker`
 
 * oc (Openshift client)
@@ -19,14 +19,17 @@ You will be extensively using the Terminal on this workshop, so the following CL
 * Java 8+
 ** MacOS: `brew cask install adoptopenjdk`
 ** Fedora: `dnf install java`
+** https://adoptopenjdk.net[Windows] (Make sure you set the `JAVA_HOME` environment variable and add `%JAVA_HOME%\bin` to your `PATH`)
 
 * Apache Maven
 ** MacOS: `brew install maven`
 ** Fedora: `dnf install maven`
+** https://maven.apache.org/download.cgi[Windows] (Make sure you set the `MAVEN_HOME` environment variable and add `%MAVEN_HOME%\bin` to your `PATH`)
 
 * link:https://github.com/wercker/stern[Stern] - A multi pod and container log tailing for Kubernetes
 ** Mac OS: `brew install stern`
 ** Fedora: `sudo curl --output /usr/local/bin/stern -L https://github.com/wercker/stern/releases/download/1.6.0/stern_linux_amd64 && sudo chmod +x /usr/local/bin/stern`
+** https://github.com/wercker/stern/releases/download/1.10.0/stern_windows_amd64.exe[Windows]
 
 * `curl`, `gunzip`, `tar`
 ** Mac OS: built-in or part of your bash shell
