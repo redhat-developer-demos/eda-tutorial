@@ -34,10 +34,12 @@ You will be extensively using the Terminal on this workshop, so the following CL
 * `curl`, `gunzip`, `tar`
 ** Mac OS: built-in or part of your bash shell
 ** Fedora: should also be installed already, but just in case... `dnf install curl gzip tar`
+** Windows: Make sure you have the https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Subsystem for Linux] installed.
 
 * git
 ** MacOS: `brew install git`
 ** Fedora: `dnf install git`
+** Windows: Make sure you have the https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Subsystem for Linux] installed.
 
 == Optional
 
