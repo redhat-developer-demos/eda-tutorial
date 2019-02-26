@@ -26,26 +26,6 @@ eval $(minishift docker-env)
 oc login $(minishift ip):8443 -u admin -p admin
 ----
 
-[#environment]
-== Deploying Strimzi
-[source,bash]
-----
-curl -L https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.10.0/strimzi-0.10.0.tar.gz | tar xzf -
-----
-
-[source,bash]
-----
-sed -i '' 's/namespace: .*/namespace: strimzi-infra/' install/cluster-operator/*RoleBinding*.yaml
-----
-
-[source,bash]
-----
-oc new-project strimzi-infra
-oc apply -f install/cluster-operator -n strimzi-infra
-oc apply -f examples/templates/cluster-operator -n strimzi-infra
-oc apply -f examples/kafka/kafka-persistent-single.yaml
-----
-
 [#mysql]
 == Deploy a MySQL database instance
 

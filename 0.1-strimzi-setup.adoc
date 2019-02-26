@@ -1,0 +1,37 @@
+# Event-Driven Architecture Tutorial
+
+== Deploying Strimzi
+[source,bash]
+----
+curl -L https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.10.0/strimzi-0.10.0.tar.gz | tar xzf -
+----
+
+[source,bash]
+----
+sed -i '' 's/namespace: .*/namespace: strimzi-infra/' install/cluster-operator/*RoleBinding*.yaml
+----
+
+[source,bash]
+----
+oc new-project strimzi-infra
+oc apply -f install/cluster-operator -n strimzi-infra
+oc apply -f examples/templates/cluster-operator -n strimzi-infra
+oc apply -f examples/kafka/kafka-persistent-single.yaml
+----
+
+[source,bash]
+----
+oc apply -f strimzi-files/ClusterRole-strimzi-topic-admin.yaml
+oc apply -f strimzi-files/ClusterRole-strimzi-pod-exec-and-portforward.yaml
+----
+
+[source,bash]
+----
+oc adm policy add-role-to-group strimzi-topic-admin system:authenticated -n strimzi-infra
+oc adm policy add-role-to-group strimzi-pod-exec-and-portforward system:authenticated -n strimzi-infra
+----
+
+[source,bash]
+----
+oc create -f strimzi-files/kafka-topic-template.yaml
+----
