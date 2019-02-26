@@ -37,3 +37,21 @@ oc new-app https://github.com/yanaga/eda-tutorial.git --strategy=docker --name=m
 -e MYSQL_PASSWORD=mysqlpw
 ----
 
+[#kafka-topic]
+== Create a Kafka Topic
+
+[source,bash]
+----
+oc process -n strimzi-infra kafka-topic-template WORKSHOP_USER=1 | oc apply -n strimzi-infra -f -
+----
+
+----
+oc exec -it my-cluster-kafka-0 -c kafka -n strimzi-infra -- bin/kafka-topics.sh --zookeeper localhost:2181 --describe
+----
+
+== Port forward Kafka to your machine
+
+[source,bash]
+----
+oc port-forward my-cluster-kafka-0 -n strimzi-infra 9092
+----
