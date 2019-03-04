@@ -10,10 +10,11 @@ minishift config set vm-driver virtualbox ## or kvm, for Fedora
 minishift config set image-caching true
 minishift config set openshift-version v3.11.0
 minishift addon enable admin-user
-minishift addon enable anyuid
+minishift addon disable anyuid
 
 minishift start
-minishift ssh -- sudo setenforce 0
+
+minishift openshift component add service-catalog
 ----
 
 [#environment]
@@ -54,4 +55,11 @@ oc exec -it my-cluster-kafka-0 -c kafka -n strimzi-infra -- bin/kafka-topics.sh 
 [source,bash]
 ----
 oc port-forward my-cluster-kafka-0 -n strimzi-infra 9092
+----
+
+== Port forward MySQL to your machine
+
+[source,bash]
+----
+oc port-forward mysql 3306
 ----
