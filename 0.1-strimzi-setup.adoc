@@ -27,6 +27,7 @@ oc apply -f strimzi-files/ClusterRole-strimzi-pod-exec-and-portforward.yaml
 
 [source,bash]
 ----
+oc adm policy add-role-to-group view system:authenticated -n strimzi-infra
 oc adm policy add-role-to-group strimzi-topic-admin system:authenticated -n strimzi-infra
 oc adm policy add-role-to-group strimzi-pod-exec-and-portforward system:authenticated -n strimzi-infra
 ----
