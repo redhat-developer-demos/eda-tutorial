@@ -1,4 +1,4 @@
-FROM hub.docker.com/mysql:5.7
+FROM mysql:8.0
 
 MAINTAINER Red Hat Developer Program
 
