@@ -10,15 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SimpleKafkaSenderRoute extends RouteBuilder {
 
-    private static final String RESPONSE_STRING_FORMAT = "recommendation v1 from '%s': %s";
+    private static final String RESPONSE_STRING_FORMAT = "message from '%s': %s";
 
-    private static final String HOSTNAME = parseContainerIdFromHostname(
-            System.getenv().getOrDefault("HOSTNAME", "unknown")
-    );
+    private static final String HOSTNAME = System.getenv().getOrDefault("HOSTNAME", "unknown");
 
-    static String parseContainerIdFromHostname(String hostname) {
-        return hostname.replaceAll("recommendation-v\\d+-", "");
-    }
+    private static final String WORKSHOP_USER = System.getenv().getOrDefault("WORKSHOP_USER", "UNKNOWN_USER");
 
     private int count = 0;
 
@@ -26,11 +22,10 @@ public class SimpleKafkaSenderRoute extends RouteBuilder {
     public void configure() throws Exception {
         from("timer://simple?period=3s")
                 .routeId("kafka-sender-route")
-                .log(LoggingLevel.INFO, String.format("recommendation request from %s: ${id}", HOSTNAME))
+                .log(LoggingLevel.INFO, String.format("message from %s: ${id}", HOSTNAME))
                 .process(e -> e.getOut().setBody(String.format(RESPONSE_STRING_FORMAT, HOSTNAME, count++)))
-//                .setHeader(KafkaConstants.PARTITION_KEY, simple("1"))
                 .setHeader(KafkaConstants.KEY, simple("1"))
-                .to("kafka:my-topic-user1");
+                .to(String.format("kafka:my-topic-%s", WORKSHOP_USER));
     }
 
 }
