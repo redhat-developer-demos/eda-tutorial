@@ -1,4 +1,4 @@
-FROM mysql:8.0
+FROM quay.io/rhdevelopers/mysql:latest
 
 MAINTAINER Red Hat Developer Program
 
