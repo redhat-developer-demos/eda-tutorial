@@ -3,7 +3,7 @@
 == Deploying Strimzi
 [source,bash]
 ----
-curl -L https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.10.0/strimzi-0.10.0.tar.gz | tar xzf -
+curl -L https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.11.0/strimzi-0.11.0.tar.gz | tar xzf -
 ----
 
 [source,bash]
