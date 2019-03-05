@@ -32,7 +32,7 @@ oc login $(minishift ip):8443 -u admin -p admin
 
 [source,bash]
 ----
-oc new-app https://github.com/yanaga/eda-tutorial.git --strategy=docker --name=mysql --context-dir=docker-images/mysql \
+oc new-app --docker-image=quay.io/rhdevelopers/eda-tutorial-mysql --name=mysql \
 -e MYSQL_ROOT_PASSWORD=redhat \
 -e MYSQL_USER=mysqluser \
 -e MYSQL_PASSWORD=mysqlpw
