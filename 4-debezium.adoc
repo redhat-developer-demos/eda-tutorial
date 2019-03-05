@@ -1,0 +1,79 @@
+# Event-Driven Architecture Tutorial
+
+[source,bash]
+----
+export DEBEZIUM_VERSION=0.8.3.Final
+mkdir -p plugins && cd plugins && \
+curl http://central.maven.org/maven2/io/debezium/debezium-connector-mysql/$DEBEZIUM_VERSION/debezium-connector-mysql-$DEBEZIUM_VERSION-plugin.tar.gz | tar xz; \
+mkdir confluent-jdbc-sink && cd confluent-jdbc-sink && \
+curl -O http://packages.confluent.io/maven/io/confluent/kafka-connect-jdbc/5.0.0/kafka-connect-jdbc-5.0.0.jar && \
+cd .. && \
+oc start-build debezium-connect --from-dir=. --follow && \
+cd ..
+----
+
+[source,bash]
+----
+oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -w "\n" -X POST \
+    -H "Accept:application/json" \
+    -H "Content-Type:application/json" \
+    http://debezium-connect-api:8083/connectors -d @- <<'EOF'
+
+{
+    "name": "transaction-connector-user100",
+    "config": {
+        "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+        "tasks.max": "1",
+        "database.hostname": "mysql.user100.svc",
+        "database.port": "3306",
+        "database.user": "root",
+        "database.password": "redhat",
+        "database.server.id": "100",
+        "database.server.name": "mysql-user100",
+        "database.whitelist": "transaction",
+        "database.history.kafka.bootstrap.servers": "my-cluster-kafka-bootstrap:9092",
+        "database.history.kafka.topic": "schema-changes.transaction",
+        "transforms": "route",
+        "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
+        "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
+        "transforms.route.replacement": "$3"
+    }
+}
+EOF
+----
+
+[source,bash]
+----
+oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -X DELETE \
+  -H "Accept:application/json" \
+  http://debezium-connect-api:8083/connectors/transaction-connector-user100
+----
+
+[source,bash]
+----
+oc logs $(oc get pods -o name -l strimzi.io/name=debezium-connect) -f
+----
+
+[source,bash]
+----
+oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s \
+  -H "Accept:application/json" http://debezium-connect-api:8083/connectors
+---
+
+[source,bash]
+----
+oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s \
+    -H "Accept:application/json" \
+    http://debezium-connect-api:8083/connectors
+---
+
+Print Kafka messages:
+
+[source,bash]
+----
+oc exec -c zookeeper -it my-cluster-zookeeper-0 -n strimzi-infra -- /opt/kafka/bin/kafka-console-consumer.sh \
+	--bootstrap-server my-cluster-kafka-bootstrap:9092 \
+	--from-beginning \
+	--property print.key=true \
+	--topic my-topic-user100
+----
