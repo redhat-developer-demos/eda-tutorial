@@ -1,4 +1,4 @@
-FROM quay.io/rhdevelopers/mysql:latest
+FROM quay.io/rhdevelopers/eda-tutorial-database:latest
 
 MAINTAINER Red Hat Developer Program
 
