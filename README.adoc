@@ -68,7 +68,7 @@ Once you have at least one successfull build, you can ask OpenShift to run your 
 
 [source,bash]
 ----
-oc new-build --binary --name=myapp
+oc new-app myapp
 ----
 
 If you wish your application to be publicly exposed, you can run:
