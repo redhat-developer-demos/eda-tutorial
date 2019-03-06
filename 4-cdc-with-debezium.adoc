@@ -1,4 +1,4 @@
-# Event-Driven Architecture Tutorial
+# Change Data Capture (CDC) with Debezium
 
 [source,bash]
 ----
@@ -11,6 +11,8 @@ cd .. && \
 oc start-build debezium-connect --from-dir=. --follow && \
 cd ..
 ----
+
+### Registering a Debezium connector for a MySQL database
 
 [source,bash]
 ----
@@ -33,14 +35,13 @@ oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -w "\n" -X PO
         "database.whitelist": "transaction",
         "database.history.kafka.bootstrap.servers": "my-cluster-kafka-bootstrap:9092",
         "database.history.kafka.topic": "schema-changes.transaction",
-        "transforms": "route",
-        "transforms.route.type": "org.apache.kafka.connect.transforms.RegexRouter",
-        "transforms.route.regex": "([^.]+)\\.([^.]+)\\.([^.]+)",
-        "transforms.route.replacement": "$3"
+	"table.whitelist": "transaction"
     }
 }
 EOF
 ----
+
+### Deleting a Debezium connector
 
 [source,bash]
 ----
@@ -49,25 +50,22 @@ oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -X DELETE \
   http://debezium-connect-api:8083/connectors/transaction-connector-user100
 ----
 
+### Viewing the Debezium logs
+
 [source,bash]
 ----
 oc logs $(oc get pods -o name -l strimzi.io/name=debezium-connect) -f
 ----
 
+### Listing the registered Debezium connectors
+
 [source,bash]
 ----
 oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s \
   -H "Accept:application/json" http://debezium-connect-api:8083/connectors
----
-
-[source,bash]
 ----
-oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s \
-    -H "Accept:application/json" \
-    http://debezium-connect-api:8083/connectors
----
 
-Print Kafka messages:
+### Printing the messages on a Kafka topic
 
 [source,bash]
 ----

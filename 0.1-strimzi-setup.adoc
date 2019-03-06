@@ -16,7 +16,12 @@ sed -i '' 's/namespace: .*/namespace: strimzi-infra/' install/cluster-operator/*
 oc new-project strimzi-infra
 oc apply -f install/cluster-operator -n strimzi-infra
 oc apply -f examples/templates/cluster-operator -n strimzi-infra
-oc apply -f examples/kafka/kafka-ephemeral.yaml
+----
+
+[source,bash]
+----
+oc apply -f strimzi-files/kafka-persistent.yaml
+oc apply -f strimzi-files/strimzi-s2i.yaml
 ----
 
 [source,bash]
