@@ -26,6 +26,15 @@ export WORKSHOP_USER=userXX
 oc login https://master.atlanta-890d.openshiftworkshop.com/ -u $WORKSHOP_USER -p openshift
 ----
 
+### Clone the project in your local machine:
+
+The repository will become your working directory. All of the instructions start on this directory unless specified otherwise.
+
+[source,bash]
+----
+git clone https://github.com/redhat-developer-demos/eda-tutorial.git
+----
+
 ### Create the project where you will deploy your applications:
 
 [source,bash]
