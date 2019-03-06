@@ -8,7 +8,7 @@ Etherpad URL: https://etherpad.wikimedia.org/p/DevNexus_EDA_Tutorial
 
 There are 90 available users on this OpenShift installation. Please use the Etherpad to share with the other attendees your chosen user.
 
-Your login will be `userXX`, where XX ranges from 1 to 90.
+Your login will be `userXX`, where `XX` ranges from 1 to 90.
 
 The password is `openshift`;
 
@@ -32,6 +32,13 @@ oc login https://master.atlanta-890d.openshiftworkshop.com/ -u $WORKSHOP_USER -p
 ----
 oc new-project $WORKSHOP_USER
 ----
+
+## Scenarios
+
+. link:2-kafka-basic.adoc[Basic Kafka]
+. link:3-enmasse-basic.adoc[Basic Enmasse]
+. link:3-enmasse-basic.adoc[Basic Enmasse]
+. link:4-advanced-scenario.adoc[Advanced Scenario]
 
 == Deploying your application to OpenShift:
 
