@@ -1,6 +1,5 @@
-# Event-Driven Architecture Tutorial
+# Enmasse on OpenShift Setup
 
-== Deploying Enmasse
 [source,bash]
 ----
 curl -L https://github.com/EnMasseProject/enmasse/releases/download/0.26.2/enmasse-0.26.2.tgz | tar xzf -
