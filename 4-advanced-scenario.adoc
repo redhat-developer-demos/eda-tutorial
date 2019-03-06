@@ -19,6 +19,7 @@ From the root of your repository:
 [source,bash]
 ----
 cd projects/bank/transaction
+mvn clean package
 oc new-build --binary --name=transaction
 oc start-build transaction --from-dir=. --follow
 oc new-app transaction -e WORKSHOP_USER=$WORKSHOP_USER
