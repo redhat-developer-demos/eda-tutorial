@@ -22,7 +22,7 @@ public class KafkaSenderCamelRoute extends RouteBuilder {
     public void configure() throws Exception {
         from("timer://simple?period=3s")
                 .routeId("kafka-sender-route")
-                .log(LoggingLevel.INFO, String.format("message from %s: ${id}", HOSTNAME))
+                .log(LoggingLevel.INFO, String.format("Sending Kafka message from %s: ${id}", HOSTNAME))
                 .process(e -> e.getOut().setBody(String.format(RESPONSE_STRING_FORMAT, HOSTNAME, count++)))
                 .to(String.format("kafka:my-topic-%s", WORKSHOP_USER));
     }

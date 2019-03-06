@@ -17,7 +17,7 @@ public class KafkaReceiverCamelRoute extends RouteBuilder {
     public void configure() throws Exception {
         from(String.format("kafka:my-topic-%s", WORKSHOP_USER))
                 .routeId("kafka-receiver-route")
-                .log(LoggingLevel.INFO, "Received kafka message ${id}")
+                .log(LoggingLevel.INFO, "Received Kafka message ${id}")
                 .process(e -> messageRepository.add(e.getIn().getMandatoryBody(String.class)));
     }
 
