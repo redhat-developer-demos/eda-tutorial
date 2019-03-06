@@ -1,0 +1,68 @@
+# Introduction to Enmasse
+
+Follow the instructions of your instructor to deploy an Enmasse instance on your project.
+
+From the root of your repository:
+
+## Deploy the `enmasse-receiver` application:
+
+*Remember to have the WORKSHOP_USER environment variable set appropriately*
+
+[source,bash]
+----
+cd projects/enmasse/enmasse-receiver
+oc new-build --binary --name=enmasse-receiver
+oc start-build enmasse-receiver --from-dir=. --follow
+oc new-app enmasse-receiver -e WORKSHOP_USER=$WORKSHOP_USER
+oc expose svc/enmasse-receiver
+----
+
+The application will take some minutes to deploy.
+
+### Check the status of your applications
+
+You can check the status of your projects on OpenShift using:
+
+[source,bash]
+----
+oc status
+----
+
+### View the logs of your application
+
+After your application is running, you can check the logs with:
+
+[source,bash]
+----
+oc logs $(oc get po -o name -l app=enmasse-receiver) -f
+----
+
+## Deploy the `enmasse-sender` application:
+
+[source,bash]
+----
+cd projects/kafka/enmasse-sender
+oc new-build --binary --name=enmasse-sender
+oc start-build enmasse-sender --from-dir=. --follow
+oc new-app enmasse-sender -e WORKSHOP_USER=$WORKSHOP_USER
+----
+
+The application will take some minutes to deploy.
+
+### Check the status of your applications
+
+You can check the status of your projects on OpenShift using:
+
+[source,bash]
+----
+oc status
+----
+
+### View the logs of your application
+
+After your application is running, you can check the logs with:
+
+[source,bash]
+----
+oc logs $(oc get po -o name -l app=enmasse-sender) -f
+----

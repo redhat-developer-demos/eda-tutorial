@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: kafka-topic-template
+  annotations:
+    description: "This template creates a new Kafka Topic for the specified WORKSHOP_USER"
+objects:
+  - apiVersion: kafka.strimzi.io/v1alpha1
+    kind: KafkaTopic
+    metadata:
+      name: my-topic-${WORKSHOP_USER}
+      labels:
+        strimzi.io/cluster: my-cluster
+    spec:
+      partitions: 1
+      replicas: 1
+      config:
+        retention.ms: 7200000
+        segment.bytes: 1073741824
+parameters: 
+- description:
+  required: true
+  name: WORKSHOP_USER

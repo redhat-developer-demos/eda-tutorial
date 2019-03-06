@@ -1,0 +1,71 @@
+# Change Data Capture (CDC) with Debezium
+
+### Registering a Debezium connector for a MySQL database
+
+[source,bash]
+----
+oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -w "\n" -X POST \
+    -H "Accept:application/json" \
+    -H "Content-Type:application/json" \
+    http://debezium-connect-api:8083/connectors -d @- <<'EOF'
+
+{
+    "name": "transaction-connector-user100",
+    "config": {
+        "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+        "tasks.max": "1",
+        "database.hostname": "mysql.user100.svc",
+        "database.port": "3306",
+        "database.user": "root",
+        "database.password": "redhat",
+        "database.server.id": "100",
+        "database.server.name": "mysql-user100",
+        "database.whitelist": "transaction",
+        "database.history.kafka.bootstrap.servers": "my-cluster-kafka-bootstrap:9092",
+        "database.history.kafka.topic": "schema-changes.transaction"
+    }
+}
+EOF
+----
+
+### Deleting a Debezium connector
+
+[source,bash]
+----
+oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -X DELETE \
+  -H "Accept:application/json" \
+  http://debezium-connect-api:8083/connectors/transaction-connector-user100
+----
+
+### Viewing the Debezium logs
+
+[source,bash]
+----
+oc logs $(oc get pods -o name -l strimzi.io/name=debezium-connect) -f
+----
+
+### Listing the registered Debezium connectors
+
+[source,bash]
+----
+oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s \
+  -H "Accept:application/json" http://debezium-connect-api:8083/connectors
+----
+
+### Listing the Kafka topics
+
+[source,bash]
+----
+oc exec -it my-cluster-kafka-0 -c kafka -- bin/kafka-topics.sh --zookeeper localhost:2181 --describe
+----
+
+### Printing the messages on a Kafka topic
+
+[source,bash]
+----
+oc exec -c zookeeper -it my-cluster-zookeeper-0 -n strimzi-infra -- /opt/kafka/bin/kafka-console-consumer.sh \
+	--bootstrap-server my-cluster-kafka-bootstrap:9092 \
+	--from-beginning \
+	--property print.key=true \
+	--topic my-topic-user100
+----

@@ -1,0 +1,23 @@
+# Enmasse on OpenShift Setup
+
+[source,bash]
+----
+curl -L https://github.com/EnMasseProject/enmasse/releases/download/0.26.2/enmasse-0.26.2.tgz | tar xzf -
+----
+
+[source,bash]
+----
+oc new-project enmasse-infra
+oc apply -f install/components/none-authservice
+oc apply -f install/components/standard-authservice
+oc apply -f install/components/address-space-controller
+oc apply -f install/components/api-service
+oc apply -f install/components/api-server
+oc apply -f install/components/service-broker
+oc apply -f install/components/cluster-service-broker
+----
+
+[source,bash]
+----
+oc adm policy add-role-to-group view system:authenticated -n enmasse-infra
+----

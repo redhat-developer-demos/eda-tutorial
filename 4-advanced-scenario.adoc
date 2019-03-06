@@ -1,0 +1,152 @@
+# Advanced Scenario: Bank Application
+
+## Deploy a MySQL database instance:
+
+[source,bash]
+----
+oc new-app --docker-image=quay.io/rhdevelopers/eda-tutorial-mysql --name=mysql \
+-e MYSQL_ROOT_PASSWORD=redhat \
+-e MYSQL_USER=mysqluser \
+-e MYSQL_PASSWORD=mysqlpw
+----
+
+## Deploy the `transaction` application:
+
+*Remember to have the WORKSHOP_USER environment variable set appropriately*
+
+From the root of your repository:
+
+[source,bash]
+----
+cd projects/bank/transaction
+oc new-build --binary --name=transaction
+oc start-build transaction --from-dir=. --follow
+oc new-app transaction -e WORKSHOP_USER=$WORKSHOP_USER
+oc expose svc/transaction
+----
+
+The application will take some minutes to deploy.
+
+### Check the status of your applications
+
+You can check the status of your projects on OpenShift using:
+
+[source,bash]
+----
+oc status
+----
+
+### View the logs of your application
+
+After your application is running, you can check the logs with:
+
+[source,bash]
+----
+oc logs $(oc get po -o name -l app=transaction) -f
+----
+
+## Register a Debezium connector for the `transaction` MySQL database
+
+*Remember to have the WORKSHOP_USER environment variable set appropriately*
+
+[source,bash]
+----
+oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -w "\n" -X POST \
+    -H "Accept:application/json" \
+    -H "Content-Type:application/json" \
+    http://debezium-connect-api:8083/connectors -d @- <<'EOF'
+
+{
+    "name": "transaction-connector-user100",
+    "config": {
+        "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+        "tasks.max": "1",
+        "database.hostname": "mysql.user100.svc",
+        "database.port": "3306",
+        "database.user": "root",
+        "database.password": "redhat",
+        "database.server.id": "100",
+        "database.server.name": "mysql-$WORKSHOP_USER",
+        "database.whitelist": "transaction",
+        "database.history.kafka.bootstrap.servers": "my-cluster-kafka-bootstrap:9092",
+        "database.history.kafka.topic": "schema-changes.transaction"
+    }
+}
+EOF
+----
+
+## Deploy the `debezium-transaction-transformer` application:
+
+*Remember to have the WORKSHOP_USER environment variable set appropriately*
+
+From the root of your repository:
+
+[source,bash]
+----
+cd projects/bank/debezium-transaction-transformer
+oc new-build --binary --name=debezium-transaction-transformer
+oc start-build debezium-transaction-transformer --from-dir=. --follow
+oc new-app debezium-transaction-transformer -e WORKSHOP_USER=$WORKSHOP_USER
+----
+
+The application will take some minutes to deploy.
+
+### Check the status of your applications
+
+You can check the status of your projects on OpenShift using:
+
+[source,bash]
+----
+oc status
+----
+
+### View the logs of your application
+
+After your application is running, you can check the logs with:
+
+[source,bash]
+----
+oc logs $(oc get po -o name -l app=debezium-transaction-transformer) -f
+----
+
+## Deploy the `account` application:
+
+*Remember to have the WORKSHOP_USER environment variable set appropriately*
+
+From the root of your repository:
+
+[source,bash]
+----
+cd projects/bank/account
+oc new-build --binary --name=account
+oc start-build account --from-dir=. --follow
+oc new-app account -e WORKSHOP_USER=$WORKSHOP_USER
+oc expose svc/account
+----
+
+The application will take some minutes to deploy.
+
+### Check the status of your applications
+
+You can check the status of your projects on OpenShift using:
+
+[source,bash]
+----
+oc status
+----
+
+### View the logs of your application
+
+After your application is running, you can check the logs with:
+
+[source,bash]
+----
+oc logs $(oc get po -o name -l app=account) -f
+----
+
+
+
+
+
+
+
