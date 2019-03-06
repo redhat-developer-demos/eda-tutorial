@@ -18,7 +18,7 @@ public class EnmasseSenderCamelRoute extends RouteBuilder {
 
         from("timer://simple?period=3s")
                 .routeId("enmasse-sender-route")
-                .log(LoggingLevel.INFO, String.format("recommendation request from %s: ${id}", HOSTNAME))
+                .log(LoggingLevel.INFO, String.format("Sending Enmasse message from %s: ${id}", HOSTNAME))
                 .process(e -> e.getOut().setBody(String.format(RESPONSE_STRING_FORMAT, HOSTNAME, count++)))
                 .to("amqps:my-topic");
     }

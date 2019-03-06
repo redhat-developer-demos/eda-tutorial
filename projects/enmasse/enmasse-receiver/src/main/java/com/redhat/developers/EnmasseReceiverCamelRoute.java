@@ -15,7 +15,7 @@ public class EnmasseReceiverCamelRoute extends RouteBuilder {
     public void configure() throws Exception {
         from(String.format("amqps:my-topic"))
                 .routeId("enmasse-receiver-route")
-                .log(LoggingLevel.INFO, "Received kafka message ${id}")
+                .log(LoggingLevel.INFO, "Received Enmasse message ${id}")
                 .process(e -> messageRepository.add(e.getIn().getMandatoryBody(String.class)));
     }
 
