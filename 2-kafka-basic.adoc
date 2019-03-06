@@ -9,6 +9,7 @@ From the root of your repository:
 [source,bash]
 ----
 cd projects/kafka/kafka-receiver
+mvn clean package
 oc new-build --binary --name=kafka-receiver
 oc start-build kafka-receiver --from-dir=. --follow
 oc new-app kafka-receiver -e WORKSHOP_USER=$WORKSHOP_USER
