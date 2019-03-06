@@ -58,11 +58,11 @@ oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -w "\n" -X PO
     http://debezium-connect-api:8083/connectors -d @- <<'EOF'
 
 {
-    "name": "transaction-connector-user100",
+    "name": "transaction-connector-$WORKSHOP_USER",
     "config": {
         "connector.class": "io.debezium.connector.mysql.MySqlConnector",
         "tasks.max": "1",
-        "database.hostname": "mysql.user100.svc",
+        "database.hostname": "mysql.$WORKSHOP_USER.svc",
         "database.port": "3306",
         "database.user": "root",
         "database.password": "redhat",
