@@ -41,6 +41,7 @@ oc logs $(oc get po -o name -l app=kafka-receiver) -f
 [source,bash]
 ----
 cd projects/kafka/kafka-sender
+mvn clean package
 oc new-build --binary --name=kafka-sender
 oc start-build kafka-sender --from-dir=. --follow
 oc new-app kafka-sender -e WORKSHOP_USER=$WORKSHOP_USER
