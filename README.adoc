@@ -46,7 +46,6 @@ oc new-project $WORKSHOP_USER
 
 . link:2-kafka-basic.adoc[Basic Kafka]
 . link:3-enmasse-basic.adoc[Basic Enmasse]
-. link:3-enmasse-basic.adoc[Basic Enmasse]
 . link:4-advanced-scenario.adoc[Advanced Scenario]
 
 == Deploying your application to OpenShift:
