@@ -55,25 +55,7 @@ oc logs $(oc get po -o name -l app=transaction) -f
 oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -w "\n" -X POST \
     -H "Accept:application/json" \
     -H "Content-Type:application/json" \
-    http://debezium-connect-api:8083/connectors -d @- <<'EOF'
-
-{
-    "name": "transaction-connector-$WORKSHOP_USER",
-    "config": {
-        "connector.class": "io.debezium.connector.mysql.MySqlConnector",
-        "tasks.max": "1",
-        "database.hostname": "mysql.$WORKSHOP_USER.svc",
-        "database.port": "3306",
-        "database.user": "root",
-        "database.password": "redhat",
-        "database.server.id": "100",
-        "database.server.name": "mysql-$WORKSHOP_USER",
-        "database.whitelist": "transaction",
-        "database.history.kafka.bootstrap.servers": "my-cluster-kafka-bootstrap:9092",
-        "database.history.kafka.topic": "schema-changes.transaction"
-    }
-}
-EOF
+    http://debezium-connect-api:8083/connectors -d "{"name":"transaction-connector-$WORKSHOP_USER","config":{"connector.class":"io.debezium.connector.mysql.MySqlConnector","tasks.max":"1","database.hostname":"mysql.$WORKSHOP_USER.svc","database.port":"3306","database.user":"root","database.password":"redhat","database.server.id":"100","database.server.name":"mysql-$WORKSHOP_USER","database.whitelist":"transaction","database.history.kafka.bootstrap.servers":"my-cluster-kafka-bootstrap:9092","database.history.kafka.topic":"schema-changes.transaction"}}"
 ----
 
 ## Deploy the `debezium-transaction-transformer` application:
