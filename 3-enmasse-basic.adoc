@@ -1,5 +1,7 @@
 # Introduction to Enmasse
 
+Follow the instructions of your instructor to deploy an Enmasse instance on your project.
+
 From the root of your repository:
 
 ## Deploy the `enmasse-receiver` application:

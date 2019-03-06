@@ -1,17 +1,5 @@
 # Change Data Capture (CDC) with Debezium
 
-[source,bash]
-----
-export DEBEZIUM_VERSION=0.8.3.Final
-mkdir -p plugins && cd plugins && \
-curl http://central.maven.org/maven2/io/debezium/debezium-connector-mysql/$DEBEZIUM_VERSION/debezium-connector-mysql-$DEBEZIUM_VERSION-plugin.tar.gz | tar xz; \
-mkdir confluent-jdbc-sink && cd confluent-jdbc-sink && \
-curl -O http://packages.confluent.io/maven/io/confluent/kafka-connect-jdbc/5.0.0/kafka-connect-jdbc-5.0.0.jar && \
-cd .. && \
-oc start-build debezium-connect --from-dir=. --follow && \
-cd ..
-----
-
 ### Registering a Debezium connector for a MySQL database
 
 [source,bash]

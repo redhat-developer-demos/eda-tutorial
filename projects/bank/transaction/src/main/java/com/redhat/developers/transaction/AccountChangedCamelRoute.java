@@ -18,7 +18,7 @@ public class AccountChangedCamelRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from(String.format("amqps:account-topic?subscriptionName=transaction-sub"))
+        from(String.format("amqps:account-topic"))
                 .routeId("account-changed-route")
                 .transacted()
                 .log(LoggingLevel.INFO, "Received Account message ${id}")

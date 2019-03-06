@@ -13,7 +13,7 @@ public class AccountChangedEventCamelRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
 
-        from("direct:account-changed")
+        from("seda:account-changed")
                 .routeId("account-changed-route")
                 .log(LoggingLevel.INFO, String.format("Sending AccountChangedEvent from %s: ${id}", HOSTNAME))
                 .process(e -> {

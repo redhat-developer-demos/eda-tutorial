@@ -14,6 +14,15 @@ import org.springframework.jms.connection.CachingConnectionFactory;
 public class AccountApplication {
 
     @Bean
+    public AMQPComponent amqps(EnmasseProperties enmasseProperties) {
+        AMQPComponent amqpComponent = new AMQPComponent();
+        amqpComponent.setConfiguration(new JmsConfiguration(
+                new CachingConnectionFactory(new JmsConnectionFactory(enmasseProperties.toJmsRemoteURI()))
+        ));
+        return amqpComponent;
+    }
+
+    @Bean
     public KafkaComponent kafka() {
         KafkaComponent kafkaComponent = new KafkaComponent();
         KafkaConfiguration configuration = new KafkaConfiguration();
@@ -21,15 +30,6 @@ public class AccountApplication {
         configuration.setGroupId("account");
         kafkaComponent.setConfiguration(configuration);
         return kafkaComponent;
-    }
-
-    @Bean
-    public AMQPComponent amqps(EnmasseProperties enmasseProperties) {
-        AMQPComponent amqpComponent = new AMQPComponent();
-        amqpComponent.setConfiguration(new JmsConfiguration(
-                new CachingConnectionFactory(new JmsConnectionFactory(enmasseProperties.toJmsRemoteURI()))
-        ));
-        return amqpComponent;
     }
 
     public static void main(String[] args) {

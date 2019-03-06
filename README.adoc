@@ -1,90 +1,33 @@
 # Event-Driven Architecture Tutorial
 
-[source,bash]
-----
-#!/bin/bash
-minishift profile set eda-tutorial
-minishift config set memory 8GB
-minishift config set cpus 3
-minishift config set vm-driver virtualbox ## or kvm, for Fedora
-minishift config set image-caching true
-minishift config set openshift-version v3.11.0
-minishift addon enable admin-user
-minishift addon disable anyuid
-
-minishift start
-
-minishift openshift component add service-catalog
-----
-
-[#environment]
-== Setup environment
-
-[source,bash]
-----
-eval $(minishift oc-env)
-eval $(minishift docker-env)
-oc login $(minishift ip):8443 -u admin -p admin
-----
-
-[#mysql]
-== Deploy a MySQL database instance
-
-[source,bash]
-----
-oc new-app --docker-image=quay.io/rhdevelopers/eda-tutorial-mysql --name=mysql \
--e MYSQL_ROOT_PASSWORD=redhat \
--e MYSQL_USER=mysqluser \
--e MYSQL_PASSWORD=mysqlpw
-----
-
-[#kafka-topic]
-== Create a Kafka Topic
-
-[source,bash]
-----
-oc process -n strimzi-infra kafka-topic-template WORKSHOP_USER=1 | oc apply -n strimzi-infra -f -
-----
-
-----
-oc exec -it my-cluster-kafka-0 -c kafka -n strimzi-infra -- bin/kafka-topics.sh --zookeeper localhost:2181 --describe
-----
-
-== Port forward MySQL to your machine
-
-[source,bash]
-----
-oc port-forward mysql 3306
-----
-
 == Deploying your application to OpenShift:
 
 First we need to tell OpenShift to create a build definition:
 
 [source,bash]
 ----
-oc new-build --binary --name=recommendation
+oc new-build --binary --name=myapp
 ----
 
 Now every time you wish to build your application, you can run:
 
 [source,bash]
 ----
-oc start-build recommendation --from-dir=. --follow
+oc start-build myapp --from-dir=. --follow
 ----
 
 Once you have at least one successfull build, you can ask OpenShift to run your application:
 
 [source,bash]
 ----
-oc new-build --binary --name=recommendation
+oc new-build --binary --name=myapp
 ----
 
 If you wish your application to be publicly exposed, you can run:
 
 [source,bash]
 ----
-oc expose svc/recommendation
+oc expose svc/myapp
 ----
 
 Print Kafka messages:
