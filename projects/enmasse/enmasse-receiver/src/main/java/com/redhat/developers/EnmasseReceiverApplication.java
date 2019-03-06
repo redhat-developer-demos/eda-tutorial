@@ -16,7 +16,7 @@ public class EnmasseReceiverApplication {
     public AMQPComponent amqps(EnmasseProperties enmasseProperties) {
         AMQPComponent amqpComponent = new AMQPComponent();
         amqpComponent.setConfiguration(new JmsConfiguration(
-                new SingleConnectionFactory(new JmsConnectionFactory(enmasseProperties.toJmsRemoteURI()))
+                new CachingConnectionFactory(new JmsConnectionFactory(enmasseProperties.toJmsRemoteURI()))
         ));
         return amqpComponent;
     }

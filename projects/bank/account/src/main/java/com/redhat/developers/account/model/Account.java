@@ -4,6 +4,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Entity
 public class Account implements Serializable {
 
@@ -16,7 +18,29 @@ public class Account implements Serializable {
 
     @NotNull
     @Column(columnDefinition = "INT")
-    private Boolean active;
+    private Boolean active = Boolean.TRUE;
+
+    protected Account() {
+    }
+
+    private Account(AccountNumber accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public static Account of(AccountNumber accountNumber) {
+        checkNotNull(accountNumber);
+        return new Account(accountNumber);
+    }
+
+    public Account activate() {
+        this.active = Boolean.TRUE;
+        return this;
+    }
+
+    public Account inactivate() {
+        this.active = Boolean.FALSE;
+        return this;
+    }
 
     public Long getId() {
         return id;

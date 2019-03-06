@@ -3,8 +3,11 @@ package com.redhat.developers.account;
 import com.redhat.developers.account.model.Account;
 import com.redhat.developers.account.model.AccountNumber;
 import com.redhat.developers.account.model.Balance;
+import com.redhat.developers.account.model.event.AccountChangedEvent;
 import com.redhat.developers.account.model.repository.AccountRepository;
 import com.redhat.developers.account.model.repository.BalanceRepository;
+import org.apache.camel.CamelContext;
+import org.apache.camel.ProducerTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,30 +23,49 @@ public class AccountController {
 
     private AccountRepository accountRepository;
 
-    private BalanceRepository balanceRepository;
+    private CamelContext camelContext;
 
-    public AccountController(AccountRepository accountRepository, BalanceRepository balanceRepository) {
+    public AccountController(AccountRepository accountRepository, CamelContext camelContext) {
         this.accountRepository = accountRepository;
-        this.balanceRepository = balanceRepository;
+        this.camelContext = camelContext;
     }
 
     @RequestMapping("/{accountNumber}")
     public Account account(@PathVariable("accountNumber") int accountNumber) {
-        return accountRepository.findByAccountNumber(AccountNumber.of(accountNumber));
+        return accountRepository.findByAccountNumber(AccountNumber.of(accountNumber))
+                .orElseThrow(AccountNotFoundException::new);
     }
 
-    @RequestMapping("/{accountNumber}/balance")
-    public Balance balance(@PathVariable("accountNumber") int accountNumber) {
-        return balanceRepository.findByAccountNumber(AccountNumber.of(accountNumber)).orElseThrow(() -> new BalanceNotFoundException());
+    @RequestMapping("/new/{accountNumber}")
+    public Account newAccount(@PathVariable("accountNumber") int accountNumber) {
+        return accountRepository.save(Account.of(AccountNumber.of(accountNumber)));
+    }
+
+    @RequestMapping("/{accountNumber}/activate")
+    public Account activate(@PathVariable("accountNumber") int accountNumber) {
+        Account account = accountRepository.findByAccountNumber(AccountNumber.of(accountNumber))
+                .orElseThrow(AccountNotFoundException::new);
+        ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
+        producerTemplate.requestBody("direct:account-changed", AccountChangedEvent.of(account.activate()));
+        return account;
+    }
+
+    @RequestMapping("/{accountNumber}/inactivate")
+    public Account inactivate(@PathVariable("accountNumber") int accountNumber) {
+        Account account = accountRepository.findByAccountNumber(AccountNumber.of(accountNumber))
+                .orElseThrow(AccountNotFoundException::new);
+        ProducerTemplate producerTemplate = camelContext.createProducerTemplate();
+        producerTemplate.requestBody("direct:account-changed", AccountChangedEvent.of(account.inactivate()));
+        return account;
     }
 
 }
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-class BalanceNotFoundException extends RuntimeException {
+class AccountNotFoundException extends RuntimeException {
 
-    public BalanceNotFoundException() {
-        super("Balance not found or Account does not exist.");
+    public AccountNotFoundException() {
+        super("Account does not exist.");
     }
 
 }
