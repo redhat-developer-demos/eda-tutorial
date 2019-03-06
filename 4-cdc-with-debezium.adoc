@@ -65,6 +65,13 @@ oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s \
   -H "Accept:application/json" http://debezium-connect-api:8083/connectors
 ----
 
+### Listing the Kafka topics
+
+[source,bash]
+----
+oc exec -it my-cluster-kafka-0 -c kafka -- bin/kafka-topics.sh --zookeeper localhost:2181 --describe
+----
+
 ### Printing the messages on a Kafka topic
 
 [source,bash]
