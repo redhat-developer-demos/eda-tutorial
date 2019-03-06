@@ -12,6 +12,7 @@ cd projects/kafka/kafka-receiver
 oc new-build --binary --name=kafka-receiver
 oc start-build kafka-receiver --from-dir=. --follow
 oc new-app kafka-receiver -e WORKSHOP_USER=$WORKSHOP_USER
+oc expose svc/enmasse-receiver
 ----
 
 The application will take some minutes to deploy.
