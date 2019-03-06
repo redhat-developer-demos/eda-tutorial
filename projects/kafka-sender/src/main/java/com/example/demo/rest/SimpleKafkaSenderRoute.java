@@ -24,7 +24,6 @@ public class SimpleKafkaSenderRoute extends RouteBuilder {
                 .routeId("kafka-sender-route")
                 .log(LoggingLevel.INFO, String.format("message from %s: ${id}", HOSTNAME))
                 .process(e -> e.getOut().setBody(String.format(RESPONSE_STRING_FORMAT, HOSTNAME, count++)))
-                .setHeader(KafkaConstants.KEY, simple("1"))
                 .to(String.format("kafka:my-topic-%s", WORKSHOP_USER));
     }
 
