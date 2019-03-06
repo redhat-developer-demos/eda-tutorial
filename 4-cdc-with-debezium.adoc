@@ -34,8 +34,7 @@ oc exec -c kafka -i my-cluster-kafka-0 -n strimzi-infra -- curl -s -w "\n" -X PO
         "database.server.name": "mysql-user100",
         "database.whitelist": "transaction",
         "database.history.kafka.bootstrap.servers": "my-cluster-kafka-bootstrap:9092",
-        "database.history.kafka.topic": "schema-changes.transaction",
-	"table.whitelist": "transaction"
+        "database.history.kafka.topic": "schema-changes.transaction"
     }
 }
 EOF
