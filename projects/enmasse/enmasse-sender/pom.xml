@@ -8,8 +8,8 @@
         <version>2.1.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.redhat.developers.eda</groupId>
-    <artifactId>recommendation</artifactId>
+    <groupId>com.redhat.developers</groupId>
+    <artifactId>enmasse-sender</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
