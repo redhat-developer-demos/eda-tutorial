@@ -42,7 +42,7 @@ oc logs $(oc get po -o name -l app=enmasse-receiver) -f
 
 [source,bash]
 ----
-cd projects/kafka/enmasse-sender
+cd projects/enmasse/enmasse-sender
 mvn clean package -DskipTests
 oc new-build --binary --name=enmasse-sender
 oc start-build enmasse-sender --from-dir=. --follow
