@@ -25,3 +25,11 @@ export WORKSHOP_USER=<your-username>
 
 oc login -u $WORKSHOP_USER -p <password> <my-cluster-url>
 ====
+
+Make sure you're using the right OpenShift project:
+
+[source,bash]
+====
+oc project $WORKSHOP_USER-sandbox
+====
+

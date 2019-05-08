@@ -4,7 +4,8 @@
 ** xref:1-setup.adoc#cli-tools[Required CLI Tools]
 ** xref:1-setup.adoc#environment-setup[Environment Setup]
 
-* xref:2deploy-transaction-service.adoc[2. Deploy Transaction Microservice]
-** xref:2deploy-transaction-service.adoc[2. Deploy Microservices]
-** xref:2deploy-transaction-service.adoc[2. Deploy Microservices]
-** xref:2deploy-transaction-service.adoc[2. Deploy Microservices]
+* xref:2-transaction-microservice.adoc[2. Deploy Transaction Microservice]
+** xref:2-transaction-microservice.adoc#new-app[Create the Transaction Microservices Application]
+** xref:2-transaction-microservice.adoc#send-transactions[Send transactions to the Transaction Microservice]
+** xref:2-transaction-microservice.adoc#check-logs[Check the Transaction Microservice logs]
+** xref:2-transaction-microservice.adoc#kafka-topic-logs[Viewing the messages on the kafka topic]
