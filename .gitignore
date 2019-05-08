@@ -5,3 +5,4 @@ target
 *.class
 *.log
 .cache
+gh-pages
