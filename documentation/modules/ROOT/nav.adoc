@@ -1,6 +1,5 @@
-* xref:index.adoc[The Event-Driven Architecture Tutorial]
+* xref:index.adoc[Introduction]
 
-ifndef::workshop[]
 * xref:1setup.adoc[1. Setup]
 ** xref:1setup.adoc#prerequisite[Prerequisites]
 ** xref:1setup.adoc#minishift[Setup MiniShift]
@@ -12,4 +11,3 @@ ifndef::workshop[]
 ** xref:2deploy-microservices.adoc#deploypreference[Deploy Preference]
 ** xref:2deploy-microservices.adoc#deployrecommendation[Deploy Recommendation]
 ** xref:2deploy-microservices.adoc#redeployingcode[Updating Redeploying Code]
-endif::workshop[]
