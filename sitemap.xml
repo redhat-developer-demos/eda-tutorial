@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://redhat-developer-demos.github.io/eda-tutorial/eda-tutorial/1.0/1-setup.html</loc>
+<lastmod>2019-05-08T15:22:19.086Z</lastmod>
+</url>
+<url>
 <loc>https://redhat-developer-demos.github.io/eda-tutorial/eda-tutorial/1.0/index.html</loc>
-<lastmod>2019-05-08T03:07:44.063Z</lastmod>
+<lastmod>2019-05-08T15:22:19.086Z</lastmod>
 </url>
 </urlset>
