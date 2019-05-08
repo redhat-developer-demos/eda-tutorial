@@ -210,6 +210,9 @@
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs $(oc get po -o name -l app=transaction) -f</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Hit <code>CTRL+C</code> to exit viewing the logs.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -226,6 +229,22 @@
 	--property print.key=true \
 	--topic transactions-$WORKSHOP_USER</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>You should see something like:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">OpenJDK 64-Bit Server VM warning: If the number of processors is expected to increase from one, then you should configure the number of parallel GC threads appropriately using -XX:ParallelGCThreads=N
+null	{"account":1001,"amount":10,"type":"CREDIT"}
+null	{"account":1001,"amount":5,"type":"DEBIT"}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On this log you have two messages printed. The <code>null</code> in the beginning of the line shows the partition key. We&#8217;re ignoring partitions keys in this tutorial for now.</p>
+</div>
+<div class="paragraph">
+<p>Hit <code>CTRL+C</code> to exit viewing the logs.</p>
 </div>
 </div>
 </div>
