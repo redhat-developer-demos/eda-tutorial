@@ -1,7 +1,7 @@
 = Deploy Transaction Microservice 
 
 [#new-app]
-== Create the Transaction Microservices Application
+== Create the Transaction Microservice Application
 
 We'll be using a prebuilt Native Quarkus image available on https://quay.io/rhdevelopers[]:
 

@@ -1,0 +1,67 @@
+= Deploy Account Microservice
+
+[#new-app]
+== Create the Account Microservice Application
+
+We'll be using a prebuilt Native Quarkus image available on https://quay.io/rhdevelopers[]:
+
+And since we want that every user is publishing and consuming to a different kafka topic, we'll be providing the `mp.messaging.incoming.transactions.topic` environment variable to our application pointing to our custom topic.
+
+[source,bash]
+====
+oc new-app quay.io/rhdevelopers/eda-tutorial-kafka-account --name=account -e mp.messaging.incoming.transactions.topic=transactions-$WORKSHOP_USER
+====
+
+Let's expose the app so we can consume it through `curl`:
+
+[source,bash]
+====
+oc expose svc/account
+====
+
+[#query-account]
+== List Available Accounts
+
+For memory constraints, we're just using an in-memory repository for the accounts. In real workloads you would use some kind of persistence storage such as a relational database.
+
+Let's query our Account REST resource to list all available accounts and their respective amounts:
+
+[source,bash]
+====
+curl $(oc get route/account -o jsonpath="{.spec.host}")/account
+====
+
+This should be an empty JSON list, since we just deployed the microservice and we didn't consume any transactions yet.
+
+Now let's publish some transactions again and see what happens:
+
+[source,bash]
+====
+curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":33,\"type\":\"CREDIT\"}"
+curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1002,\"amount\":25,\"type\":\"CREDIT\"}"
+====
+
+If we query the REST resource again, we should be able to see two accounts with their respective amounts:
+
+[source,bash]
+====
+curl $(oc get route/account -o jsonpath="{.spec.host}")/account
+====
+
+We can also query the accounts individually by specifying them in our HTTP endpoint:
+
+[source,bash]
+====
+curl $(oc get route/account -o jsonpath="{.spec.host}")/account/1001
+curl $(oc get route/account -o jsonpath="{.spec.host}")/account/1002
+====
+
+[#check-logs]
+== Check the Account Microservice logs
+
+Let's check the application logs to see what's happening:
+
+[source,bash]
+====
+oc logs $(oc get po -o name -l app=account) -f
+====

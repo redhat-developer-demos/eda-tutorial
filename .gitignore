@@ -6,3 +6,4 @@ target
 *.log
 .cache
 gh-pages
+*.swp
