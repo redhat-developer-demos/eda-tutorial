@@ -13,8 +13,3 @@ ifndef::workshop[]
 ** xref:2deploy-microservices.adoc#deployrecommendation[Deploy Recommendation]
 ** xref:2deploy-microservices.adoc#redeployingcode[Updating Redeploying Code]
 endif::workshop[]
-
-ifdef::workshop[]
-* xref:workshop:1setup.adoc[1. Setup]
-* xref:workshop:2deploy-microservices.adoc[2. Deploy Microservices]
-endif::workshop[]
