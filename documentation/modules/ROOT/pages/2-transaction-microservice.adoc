@@ -46,6 +46,8 @@ Let's check the application logs to see what's happening:
 oc logs $(oc get po -o name -l app=transaction) -f
 ----
 
+Hit `CTRL+C` to exit viewing the logs.
+
 [#kafka-topic-logs]
 == Viewing the messages on the kafka topic
 
@@ -59,3 +61,16 @@ oc exec -c zookeeper -it my-cluster-zookeeper-0 -n strimzi-infra -- /opt/kafka/b
 	--property print.key=true \
 	--topic transactions-$WORKSHOP_USER
 ----
+
+You should see something like:
+
+[source,bash,subs="+macros,+attributes"]
+----
+OpenJDK 64-Bit Server VM warning: If the number of processors is expected to increase from one, then you should configure the number of parallel GC threads appropriately using -XX:ParallelGCThreads=N
+null	{"account":1001,"amount":10,"type":"CREDIT"}
+null	{"account":1001,"amount":5,"type":"DEBIT"}
+----
+
+On this log you have two messages printed. The `null` in the beginning of the line shows the partition key. We're ignoring partitions keys in this tutorial for now.
+
+Hit `CTRL+C` to exit viewing the logs.
