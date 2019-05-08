@@ -28,7 +28,7 @@ Let's query our Account REST resource to list all available accounts and their r
 
 [source,bash,subs="+macros,+attributes"]
 ----
-curl $(oc get route/account -o jsonpath="{.spec.host}")/account
+curl -w "\n" $(oc get route/account -o jsonpath="{.spec.host}")/account
 ----
 
 This should be an empty JSON list, since we just deployed the microservice and we didn't consume any transactions yet.
@@ -37,23 +37,23 @@ Now let's publish some transactions again and see what happens:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":33,\"type\":\"CREDIT\"}"
-curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1002,\"amount\":25,\"type\":\"CREDIT\"}"
+curl -w "\n" -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":33,\"type\":\"CREDIT\"}"
+curl -w "\n" -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1002,\"amount\":25,\"type\":\"CREDIT\"}"
 ----
 
 If we query the REST resource again, we should be able to see two accounts with their respective amounts:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-curl $(oc get route/account -o jsonpath="{.spec.host}")/account
+curl -w "\n" $(oc get route/account -o jsonpath="{.spec.host}")/account
 ----
 
 We can also query the accounts individually by specifying them in our HTTP endpoint:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-curl $(oc get route/account -o jsonpath="{.spec.host}")/account/1001
-curl $(oc get route/account -o jsonpath="{.spec.host}")/account/1002
+curl -w "\n" $(oc get route/account -o jsonpath="{.spec.host}")/account/1001
+curl -w "\n" $(oc get route/account -o jsonpath="{.spec.host}")/account/1002
 ----
 
 [#check-logs]

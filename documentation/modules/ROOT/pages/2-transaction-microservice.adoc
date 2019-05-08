@@ -26,14 +26,14 @@ Right now we can send post transactions to our microservices, which in turn will
 
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":10,\"type\":\"CREDIT\"}"
+curl -w "\n" -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":10,\"type\":\"CREDIT\"}"
 ----
 
 In this particular example we're posting a transaction with amount `10`, of type `CREDIT` to account `1001`. You can switch the values and try again too. Let's try to issue a `DEBIT` transaction with amount `5` to the same account `1001`:
 
 [source,bash,subs="+macros,+attributes"]
 ----
-curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":5,\"type\":\"DEBIT\"}"
+curl -w "\n" -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":5,\"type\":\"DEBIT\"}"
 ----
 
 [#check-logs]
