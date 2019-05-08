@@ -19,17 +19,17 @@ You will be extensively using the Terminal on this workshop, so the following CL
 
 Create an environment variable for your user and log into OpenShift.
 
-[source,bash]
-====
+[source,bash,subs="+macros,+attributes"]
+----
 export WORKSHOP_USER=<your-username>
 
 oc login -u $WORKSHOP_USER -p <password> <my-cluster-url>
-====
+----
 
 Make sure you're using the right OpenShift project:
 
-[source,bash]
-====
+[source,bash,subs="+macros,+attributes"]
+----
 oc project $WORKSHOP_USER-sandbox
-====
+----
 

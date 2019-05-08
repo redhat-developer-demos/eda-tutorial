@@ -7,55 +7,55 @@ We'll be using a prebuilt Native Quarkus image available on https://quay.io/rhde
 
 And since we want to guarantee that every user is publishing and consuming to a different kafka topic, we'll be providing the `mp.messaging.outgoing.transactions.topic` environment variable to our application pointing to our custom topic.
 
-[source,bash]
-====
+[source,bash,subs="+macros,+attributes"]
+----
 oc new-app quay.io/rhdevelopers/eda-tutorial-kafka-transaction --name=transaction -e mp.messaging.outgoing.transactions.topic=transactions-$WORKSHOP_USER
-====
+----
 
 Let's expose the app so we can consume it through `curl`:
 
-[source,bash]
-====
+[source,bash,subs="+macros,+attributes"]
+----
 oc expose svc/transaction
-====
+----
 
 [#send-transactions]
 == Send transactions to the Transaction Microservice
 
 Right now we can send post transactions to our microservices, which in turn will be published to our kafka topic. Let's use `curl` to perform it:
 
-[source,bash]
-====
+[source,bash,subs="+macros,+attributes"]
+----
 curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":10,\"type\":\"CREDIT\"}"
-====
+----
 
 In this particular example we're posting a transaction with amount `10`, of type `CREDIT` to account `1001`. You can switch the values and try again too. Let's try to issue a `DEBIT` transaction with amount `5` to the same account `1001`:
 
-[source,bash]
-====
+[source,bash,subs="+macros,+attributes"]
+----
 curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":5,\"type\":\"DEBIT\"}"
-====
+----
 
 [#check-logs]
 == Check the Transaction Microservice logs
 
 Let's check the application logs to see what's happening:
 
-[source,bash]
-====
+[source,bash,subs="+macros,+attributes"]
+----
 oc logs $(oc get po -o name -l app=transaction) -f
-====
+----
 
 [#kafka-topic-logs]
 == Viewing the messages on the kafka topic
 
 You can also check the messages that are published on the topic by querying kafka directly:
 
-[source,bash]
-====
+[source,bash,subs="+macros,+attributes"]
+----
 oc exec -c zookeeper -it my-cluster-zookeeper-0 -n strimzi-infra -- /opt/kafka/bin/kafka-console-consumer.sh \
 	--bootstrap-server my-cluster-kafka-bootstrap:9092 \
 	--from-beginning \
 	--property print.key=true \
 	--topic transactions-$WORKSHOP_USER
-====
+----
