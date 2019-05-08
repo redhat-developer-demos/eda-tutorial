@@ -5,7 +5,7 @@
 
 We'll be using a prebuilt Native Quarkus image available on https://quay.io/rhdevelopers[]:
 
-And since we want that every user is publishing and consuming to a different kafka topic, we'll be providing the `mp.messaging.incoming.transactions.topic` environment variable to our application pointing to our custom topic.
+And since we want to guarantee that every user is publishing and consuming to a different kafka topic, we'll be providing the `mp.messaging.incoming.transactions.topic` environment variable to our application pointing to our custom topic.
 
 [source,bash]
 ====
