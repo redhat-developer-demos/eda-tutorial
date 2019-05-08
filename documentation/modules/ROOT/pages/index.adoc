@@ -7,3 +7,4 @@
 In this tutorial we'll use Quarkus, Apache Camel, and Kafka to exchange some messages.
 
 This is a work in progress. Expect a full featured Event-Driven Architecture application in the upcoming months.
+
