@@ -160,21 +160,17 @@
 <div class="paragraph">
 <p>And since we want to guarantee that every user is publishing and consuming to a different kafka topic, we&#8217;ll be providing the <code>mp.messaging.incoming.transactions.topic</code> environment variable to our application pointing to our custom topic.</p>
 </div>
-<div class="exampleblock">
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p>oc new-app quay.io/rhdevelopers/eda-tutorial-kafka-account --name=account -e mp.messaging.incoming.transactions.topic=transactions-$WORKSHOP_USER</p>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-app quay.io/rhdevelopers/eda-tutorial-kafka-account --name=account -e mp.messaging.incoming.transactions.topic=transactions-$WORKSHOP_USER</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s expose the app so we can consume it through <code>curl</code>:</p>
 </div>
-<div class="exampleblock">
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p>oc expose svc/account</p>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc expose svc/account</code></pre>
 </div>
 </div>
 </div>
@@ -188,11 +184,9 @@
 <div class="paragraph">
 <p>Let&#8217;s query our Account REST resource to list all available accounts and their respective amounts:</p>
 </div>
-<div class="exampleblock">
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p>curl $(oc get route/account -o jsonpath="{.spec.host}")/account</p>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl $(oc get route/account -o jsonpath="{.spec.host}")/account</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -201,33 +195,27 @@
 <div class="paragraph">
 <p>Now let&#8217;s publish some transactions again and see what happens:</p>
 </div>
-<div class="exampleblock">
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p>curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":33,\"type\":\"CREDIT\"}"
-curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1002,\"amount\":25,\"type\":\"CREDIT\"}"</p>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1001,\"amount\":33,\"type\":\"CREDIT\"}"
+curl -X POST "$(oc get route/transaction -o jsonpath="{.spec.host}")/transaction" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"account\":1002,\"amount\":25,\"type\":\"CREDIT\"}"</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>If we query the REST resource again, we should be able to see two accounts with their respective amounts:</p>
 </div>
-<div class="exampleblock">
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p>curl $(oc get route/account -o jsonpath="{.spec.host}")/account</p>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl $(oc get route/account -o jsonpath="{.spec.host}")/account</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>We can also query the accounts individually by specifying them in our HTTP endpoint:</p>
 </div>
-<div class="exampleblock">
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p>curl $(oc get route/account -o jsonpath="{.spec.host}")/account/1001
-curl $(oc get route/account -o jsonpath="{.spec.host}")/account/1002</p>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">curl $(oc get route/account -o jsonpath="{.spec.host}")/account/1001
+curl $(oc get route/account -o jsonpath="{.spec.host}")/account/1002</code></pre>
 </div>
 </div>
 </div>
@@ -238,11 +226,9 @@ curl $(oc get route/account -o jsonpath="{.spec.host}")/account/1002</p>
 <div class="paragraph">
 <p>Let&#8217;s check the application logs to see what&#8217;s happening:</p>
 </div>
-<div class="exampleblock">
+<div class="listingblock">
 <div class="content">
-<div class="paragraph">
-<p>oc logs $(oc get po -o name -l app=account) -f</p>
-</div>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs $(oc get po -o name -l app=account) -f</code></pre>
 </div>
 </div>
 </div>
