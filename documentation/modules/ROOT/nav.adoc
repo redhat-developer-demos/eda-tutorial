@@ -10,7 +10,7 @@
 ** xref:2-transaction-microservice.adoc#check-logs[Check the Transaction Microservice logs]
 ** xref:2-transaction-microservice.adoc#kafka-topic-logs[Viewing the messages on the kafka topic]
 
-* xref:3-account-microservice.adoc[2. Deploy Account Microservice]
+* xref:3-account-microservice.adoc[3. Deploy Account Microservice]
 ** xref:3-account-microservice.adoc#new-app[Create the Account Microservice Application]
 ** xref:3-account-microservice.adoc#query-account[List Available Accounts]
 ** xref:3-account-microservice.adoc#check-logs[Check the Account Microservice logs]
