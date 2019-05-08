@@ -103,13 +103,13 @@
     <a class="nav-link" href="3-account-microservice.html">2. Deploy Account Microservice</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#">2-account-microservice.adoc#new-app</a>
+    <a class="nav-link" href="3-account-microservice.html#new-app">Create the Account Microservice Application</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#">2-account-microservice.adoc#query-account</a>
+    <a class="nav-link" href="3-account-microservice.html#query-account">List Available Accounts</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#">2-account-microservice.adoc#check-logs</a>
+    <a class="nav-link" href="3-account-microservice.html#check-logs">Check the Account Microservice logs</a>
   </li>
 </ul>
   </li>
@@ -158,7 +158,7 @@
 <p>We&#8217;ll be using a prebuilt Native Quarkus image available on <a href="https://quay.io/rhdevelopers" class="bare">https://quay.io/rhdevelopers</a>:</p>
 </div>
 <div class="paragraph">
-<p>And since we want that every user is publishing and consuming to a different kafka topic, we&#8217;ll be providing the <code>mp.messaging.outgoing.transactions.topic</code> environment variable to our application pointing to our custom topic.</p>
+<p>And since we want to guarantee that every user is publishing and consuming to a different kafka topic, we&#8217;ll be providing the <code>mp.messaging.outgoing.transactions.topic</code> environment variable to our application pointing to our custom topic.</p>
 </div>
 <div class="exampleblock">
 <div class="content">
