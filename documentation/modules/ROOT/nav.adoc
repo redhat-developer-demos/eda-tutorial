@@ -1,8 +1,9 @@
 * xref:index.adoc[Introduction]
 
 * xref:1-setup.adoc[1. Setup]
-** xref:1-setup.adoc#cli-tools[Required CLI Tools]
+** xref:1-setup.adoc#cli-tools[Prerequisites]
 ** xref:1-setup.adoc#environment-setup[Environment Setup]
+** xref:1-setup.adoc#openshift-project[OpenShift Project]
 
 * xref:2-transaction-microservice.adoc[2. Deploy Transaction Microservice]
 ** xref:2-transaction-microservice.adoc#new-app[Create the Transaction Microservice Application]

@@ -1,7 +1,7 @@
 = Workshop Setup
 
 [#cli-tools]
-== CLI tools
+== Prerequisite CLI tools
 
 You will be extensively using the Terminal on this workshop, so the following CLI tools are required:
 
@@ -25,6 +25,9 @@ export WORKSHOP_USER=<your-username>
 
 oc login -u $WORKSHOP_USER -p <password> <my-cluster-url>
 ----
+
+[#openshift-project]
+== OpenShift Project
 
 Make sure you're using the right OpenShift project:
 
