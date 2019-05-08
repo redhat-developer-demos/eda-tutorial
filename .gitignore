@@ -4,3 +4,4 @@ target
 .idea
 *.class
 *.log
+.cache
