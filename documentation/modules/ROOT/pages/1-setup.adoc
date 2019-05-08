@@ -1,0 +1,27 @@
+= Workshop Setup
+
+[#cli-tools]
+== CLI tools
+
+You will be extensively using the Terminal on this workshop, so the following CLI tools are required:
+
+* oc (Openshift client)
+** MacOS: `brew install openshift-cli`
+** Other: https://github.com/openshift/origin/releases[Openshift Releases]
+
+* `curl`, `gunzip`, `tar`
+** Mac OS: built-in or part of your bash shell
+** Fedora: should also be installed already, but just in case... `dnf install curl gzip tar`
+** Windows: Make sure you have the https://docs.microsoft.com/en-us/windows/wsl/install-win10[Windows Subsystem for Linux] installed.
+
+[#environment-setup]
+== Environment setup
+
+Create an environment variable for your user and log into OpenShift.
+
+[source,bash]
+====
+export WORKSHOP_USER=<your-username>
+
+oc login -u $WORKSHOP_USER -p <password> <my-cluster-url>
+====
