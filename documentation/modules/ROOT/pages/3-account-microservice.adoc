@@ -65,3 +65,5 @@ Let's check the application logs to see what's happening:
 ----
 oc logs $(oc get po -o name -l app=account) -f
 ----
+
+Hit `CTRL+C` to exit viewing the logs.
