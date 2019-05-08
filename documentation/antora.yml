@@ -1,5 +1,5 @@
 name: eda-tutorial
-title: Event-Driven Archicteture Tutorial
+title: Event-Driven Architeture Tutorial
 version: '1.0'
 nav:
 - modules/ROOT/nav.adoc

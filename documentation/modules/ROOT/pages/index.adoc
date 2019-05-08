@@ -1,4 +1,4 @@
-= The Event-Driven Architecture Tutorial
+= Introduction
 
 - An HTML version of this file is published at https://redhat-developer-demos.github.io/eda-tutorial/
 
