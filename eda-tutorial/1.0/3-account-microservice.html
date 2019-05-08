@@ -234,6 +234,9 @@ curl -w "\n" $(oc get route/account -o jsonpath="{.spec.host}")/account/1002</co
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs $(oc get po -o name -l app=account) -f</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Hit <code>CTRL+C</code> to exit viewing the logs.</p>
+</div>
 </div>
 </div>
 </article>
