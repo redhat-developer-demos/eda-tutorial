@@ -6,26 +6,19 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
+  build-and-publish:
     runs-on: ubuntu-18.04
-    container: 
-      image: antora/antora:2.2.0
     steps:
     - name: Checkout project
-    - uses: actions/checkout@v2
-      with:
-        persist-credentials: false
-    
-    - name: Run Antora
+      uses: actions/checkout@v2
+    - name: Run antora
       uses: docker://antora/antora:2.2.0
       with:
-        entrypoint: /bin/sh
-        args: antora antora-playbook.yml
-      
+        args: github-pages.yml 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@releases/v3.2.4
+      uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
-        GITHUB_TOKEN: ${{ github.token }}
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        GITHUB_TOKEN: "${{github.token}}"
+        FOLDER: gh-pages
         BRANCH: gh-pages
-        FOLDER: build/gh-pages
+        COMMIT_MESSAGE: "Publishing the docs for commit ${{github.sha}}"

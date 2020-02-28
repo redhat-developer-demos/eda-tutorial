@@ -5,5 +5,6 @@ target
 *.class
 *.log
 .cache
-gh-pages
+/gh-pages
+/.cache
 *.swp

@@ -1,0 +1,18 @@
+runtime:
+  cache_dir: ./.cache/antora
+
+content:
+  sources:
+    - url: ./
+      start_path: docs
+
+ui:
+  bundle:
+    url: https://github.com/redhat-developer-demos/rhd-tutorial-ui/releases/download/v0.0.4/ui-bundle.zip
+  supplemental_files:
+  - path: .nojekyll
+  - path: ui.yml
+    contents: "static_files: [ .nojekyll ]"
+
+output:
+  dir: ./gh-pages
