@@ -1,0 +1,28 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-18.04
+    container: 
+      image: antora/antora:2.2.0
+    steps:
+    - name: Checkout project
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+    
+    - name: Run Antora
+      run: antora antora-playbook.yml
+      
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@releases/v3.2.4
+      with:
+        GITHUB_TOKEN: ${{ github.token }}
+        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        BRANCH: gh-pages
+        FOLDER: build/gh-pages
