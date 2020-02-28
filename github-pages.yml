@@ -3,8 +3,8 @@ runtime:
 
 site:
   title: Site Title
-  url: https://redhat-developers-demos/eda-tutorial
-  start_page: ROOT::index.adoc
+  url: https://redhat-developers-demos.github.io/eda-tutorial
+  start_page: eda-tutorial::index.adoc
 
 content:
   sources:
