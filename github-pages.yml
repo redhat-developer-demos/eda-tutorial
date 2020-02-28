@@ -1,6 +1,11 @@
 runtime:
   cache_dir: ./.cache/antora
 
+site:
+  title: Site Title
+  url: https://redhat-developers-demos/eda-tutorial
+  start_page: ROOT::index.adoc
+
 content:
   sources:
     - url: ./
