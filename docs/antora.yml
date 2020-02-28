@@ -1,4 +1,4 @@
 name: eda-tutorial
 title: The Event-Driven Tutorial for Distributed Data with CQRS and Event Sourcing
 version: 2.0-alpha
-start_page: eda-tutorial::index.adoc
+start_page: ROOT:index.adoc
