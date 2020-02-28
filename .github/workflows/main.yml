@@ -17,7 +17,10 @@ jobs:
         persist-credentials: false
     
     - name: Run Antora
-      run: antora antora-playbook.yml
+      uses: docker://antora/antora:2.2.0
+      with:
+        entrypoint: /bin/sh
+        args: antora antora-playbook.yml
       
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3.2.4
