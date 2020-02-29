@@ -1,1 +1,19 @@
 name: code
+
+on:
+  push:
+    branches: 
+    - master
+    paths:
+    - code/**
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Setup Java JDK
+      uses: actions/setup-java@v1.3.0
+      with:
+        java-version: 11
+    - name: Check Maven
+      run: mvn -version
