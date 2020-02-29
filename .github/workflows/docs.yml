@@ -3,7 +3,10 @@ name: docs
 on:
   push:
     branches: 
-      - master
+    - master
+    paths:
+    - 'docs/**'
+    - '*.yml'
 
 jobs:
   build-and-publish:
