@@ -24,4 +24,4 @@ jobs:
         GITHUB_TOKEN: "${{github.token}}"
         FOLDER: gh-pages
         BRANCH: gh-pages
-        COMMIT_MESSAGE: "Publishing the docs for commit ${{github.sha}}"
+        COMMIT_MESSAGE: "[docs] Publishing the docs for commit(s) ${{github.sha}}"
