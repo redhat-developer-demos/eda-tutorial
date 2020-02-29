@@ -1,5 +1,6 @@
 # Event-Driven Tutorial for Distributed Data with CQRS and Event Sourcing
 
+image:https://github.com/redhat-developer-demos/eda-tutorial/workflows/code/badge.svg[]
 image:https://github.com/redhat-developer-demos/eda-tutorial/workflows/docs/badge.svg[]
 
 ## Scenarios
