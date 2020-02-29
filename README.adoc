@@ -1,79 +1,9 @@
-# Event-Driven Architecture Tutorial
+# Event-Driven Tutorial for Distributed Data with CQRS and Event Sourcing
 
-Workshop URL: https://master.atlanta-890d.openshiftworkshop.com/
-
-Etherpad URL: https://etherpad.wikimedia.org/p/DevNexus_EDA_Tutorial
-
-## Environment Setup
-
-There are 90 available users on this OpenShift installation. Please use the Etherpad to share with the other attendees your chosen user.
-
-Your login will be `userXX`, where `XX` ranges from 1 to 90.
-
-The password is `openshift`;
-
-Now it's time for you to set your environment, but *remember to replace `userXX` with your real user!*:
-
-[source,bash]
----- 
-export WORKSHOP_USER=userXX
-----
-
-### Login to your OpenShift cluster:
-
-[source,bash]
----- 
-oc login https://master.atlanta-890d.openshiftworkshop.com/ -u $WORKSHOP_USER -p openshift
-----
-
-### Clone the project in your local machine:
-
-The repository will become your working directory. All of the instructions start on this directory unless specified otherwise.
-
-[source,bash]
-----
-git clone https://github.com/redhat-developer-demos/eda-tutorial.git
-----
-
-### Create the project where you will deploy your applications:
-
-[source,bash]
-----
-oc new-project $WORKSHOP_USER
-----
+![Event-Driven Tutorial](https://github.com/redhat-developer-demos/eda-tutorial/workflows/docs/badge.svg)
 
 ## Scenarios
 
 . link:2-kafka-basic.adoc[Basic Kafka]
 . link:3-enmasse-basic.adoc[Basic Enmasse]
 . link:4-advanced-scenario.adoc[Advanced Scenario]
-
-== Deploying your application to OpenShift:
-
-First we need to tell OpenShift to create a build definition:
-
-[source,bash]
-----
-oc new-build --binary --name=myapp
-----
-
-Now every time you wish to build your application, you can run:
-
-[source,bash]
-----
-oc start-build myapp --from-dir=. --follow
-----
-
-Once you have at least one successfull build, you can ask OpenShift to run your application:
-
-[source,bash]
-----
-oc new-app myapp
-----
-
-If you wish your application to be publicly exposed, you can run:
-
-[source,bash]
-----
-oc expose svc/myapp
-----
