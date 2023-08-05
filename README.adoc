@@ -5,6 +5,6 @@ image:https://github.com/redhat-developer-demos/eda-tutorial/workflows/docs/badg
 
 ## Scenarios
 
-. link:2-kafka-basic.adoc[Basic Kafka]
-. link:3-enmasse-basic.adoc[Basic Enmasse]
-. link:4-advanced-scenario.adoc[Advanced Scenario]
+. link:https://github.com/redhat-developer-demos/eda-tutorial/blob/master/docs/modules/ROOT/pages/2-kafka-basic.adoc[Basic Kafka]
+. link:https://github.com/redhat-developer-demos/eda-tutorial/blob/master/docs/modules/ROOT/pages/3-enmasse-basic.adoc[Basic Enmasse]
+. link:https://github.com/redhat-developer-demos/eda-tutorial/blob/master/docs/modules/ROOT/pages/4-advanced-scenario.adoc[Advanced Scenario]
